@@ -9,42 +9,44 @@ namespace Recruitment.DataAccess
 {
     public interface ITokenRepository
     {
-        Task CreateToken(Token token);
+        Task<Token> GetOrCreateToken(string name);
         Task IncrementTokenUsageCount(Token token);
-        Task<Token> GetToken(string name, string key);
+        Task<Token> GetToken(string name);
     }
 
     public class TokenRepository : ITokenRepository
     {
-        IStorageProvider mStorageProvider;
+        readonly IStorageProvider mStorageProvider;
 
         public TokenRepository(IStorageProvider storageProvider)
         {
             mStorageProvider = storageProvider;
         }
 
-        public async Task CreateToken(Token token)
+        public async Task<Token> GetOrCreateToken(string name)
         {
-            await mStorageProvider.Create("tokens", GetTokenDescription(token.Key, token.Name), token);
+            var token = await mStorageProvider.TryRead<Token>("tokens", name);
+            if (token == null)
+            {
+                token = new Token { Key = Guid.NewGuid().ToString(), Name = name };
+                await mStorageProvider.Create("tokens", name, token);
+                return token;
+            }
+
+            return token;
         }
 
         public async Task IncrementTokenUsageCount(Token token)
         {
             token.UsageCount++;
-            await mStorageProvider.Update("tokens", GetTokenDescription(token.Key, token.Name), token);
+            await mStorageProvider.Update("tokens", token.Name, token);
         }
 
-        public async Task<Token> GetToken(string name, string key)
+        public async Task<Token> GetToken(string name)
         {
-            var token = await mStorageProvider.TryRead<Token>("tokens", GetTokenDescription(key, name));
+            var token = await mStorageProvider.TryRead<Token>("tokens", name);
             return token;
         }
-
-        private string GetTokenDescription(string key, string identifier)
-        {
-            return string.Format("{0}_{1}", key, identifier);
-        }
-
     }
 
     public class Token

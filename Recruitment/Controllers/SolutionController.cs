@@ -12,11 +12,18 @@ namespace Recruitment.Controllers
     {
         readonly ITokenRepository mTokenRepository;
         readonly ICodeRepository mCodeRepository;
+        private const int TokenExpirationInMinutes = 300;
 
         public SolutionController(ITokenRepository tokenRepository, ICodeRepository codeRepository)
         {
             mTokenRepository = tokenRepository;
             mCodeRepository = codeRepository;
+        }
+
+        [HttpGet]
+        public async Task<string> Get(string apiKey)
+        {
+            return await mCodeRepository.GetCode(apiKey);
         }
 
         [HttpPost]
@@ -27,20 +34,20 @@ namespace Recruitment.Controllers
             var authToken = HttpContext.Current.Request.Headers["Token"];
             var code = await Request.Content.ReadAsStringAsync();
 
-            var token = await mTokenRepository.GetToken(apiKey, authToken);
+            var token = await mTokenRepository.GetToken(apiKey);
             if (token == null)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Token does not exist" };
+                throw new HttpResponseException(resp);
+            }
+
+            if (token.Key != authToken)
             {
                 var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Invalid token" };
                 throw new HttpResponseException(resp);
             }
 
-            if (token.UsageCount > 0)
-            {
-                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Token can only be used once" };
-                throw new HttpResponseException(resp);
-            }
-
-            if (token.CreationTime.AddMinutes(30) < DateTime.UtcNow)
+            if (token.CreationTime.AddMinutes(TokenExpirationInMinutes) < DateTime.UtcNow)
             {
                 var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Token expired" };
                 throw new HttpResponseException(resp);

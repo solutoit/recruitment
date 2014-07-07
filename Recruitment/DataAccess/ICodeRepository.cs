@@ -10,6 +10,7 @@ namespace Recruitment.DataAccess
    public interface ICodeRepository
     {
         Task UpdateCode(string name, string code);
+        Task<string> GetCode(string name);
     }
 
    public class CodeRepository : ICodeRepository
@@ -24,6 +25,11 @@ namespace Recruitment.DataAccess
        public async Task UpdateCode(string name, string code)
        {
            await mStorageProvider.CreateOrUpdate("code", name, code);
+       }
+
+       public async Task<string> GetCode(string name)
+       {
+           return await mStorageProvider.TryRead<string>("code", name);
        }
    }
 }

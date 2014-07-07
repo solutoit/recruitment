@@ -17,10 +17,7 @@ namespace Recruitment.Controllers
         [HttpGet]
         public async Task<string> Get(string apiKey)
         {
-            var token = new Token { Key = Guid.NewGuid().ToString(), Name = apiKey };
-
-            await mTokenRepository.CreateToken(token);
-
+            var token = await mTokenRepository.GetOrCreateToken(apiKey);
             return token.Key;
         }
     }
