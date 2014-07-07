@@ -23,7 +23,13 @@ namespace Recruitment.Controllers
         [HttpGet]
         public async Task<string> Get(string apiKey)
         {
-            return await mCodeRepository.GetCode(apiKey);
+            var code = await mCodeRepository.GetCode(apiKey);
+            if (string.IsNullOrEmpty(code))
+            {
+                return "You didn't upload anything yet";
+            }
+
+            return code;
         }
 
         [HttpPost]

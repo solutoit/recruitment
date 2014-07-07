@@ -8,8 +8,9 @@ namespace Recruitment.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string candidateName)
         {
+            ViewBag.CandidateName = string.IsNullOrEmpty(candidateName) ? "JohnDoe" : candidateName;
             return View();
         }
     }
