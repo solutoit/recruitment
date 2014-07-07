@@ -1,10 +1,10 @@
 @using System.Web.UI.WebControls
 @{
-    ViewBag.Title = "SDET Test";
+    ViewBag.Title = "Soluto Programming Exercise";
 }
 <div class="container">
-    <h1>Soluto Programming Test</h1>
-    <p>In the following test you will write a program that makes a couple of HTTP requests to our programming test API.<br />The API is defined as follows:</p>
+    <h1>Soluto Programming Exercise</h1>
+    <p>In the following exercise you will write a program that makes a couple of HTTP requests to our programming exercise API.<br />The API is defined as follows:</p>
     <div class=" table-responsive">
         <table class="table table-hover">
             <tr>
@@ -18,7 +18,7 @@
             </tr>
             <tr>
                 <td>Personal Token</td>
-                <td><a href="http://solutohr.azurewebsites.net/api/Auth">/api/Auth</a></td>
+                <td><a href="http://solutohr.azurewebsites.net/api/Auth&apiKey=@ViewBag.CandidateName">/api/Auth</a></td>
                 <td>GET</td>
                 <td>apiKey (Your Name, Required)</td>
                 <td></td>
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td>Check Solution</td>
-                <td><a href="http://solutohr.azurewebsites.net/api/Solution">/api/Solution</a></td>
+                <td><a href="http://solutohr.azurewebsites.net/api/Solution&apiKey=@ViewBag.CandidateName">/api/Solution</a></td>
                 <td>GET</td>
                 <td>apiKey (Your Name, Required)</td>
                 <td></td>
@@ -45,14 +45,14 @@
             </tr>
         </table>
     </div>
-    <p>Your test is to make a request to the first API endpoint to receive your personal token, and then make a request to the second API while using the token you received from the first request with the code of your program in the body of the request.</p>
+    <p>Your task is to write code that consumes a simple REST API which allows you to upload some code to storage. You first have to make a GET request to the first API endpoint to receive your personal token, and then make a POST request to the second API endpoint, posting the code you used to solve the exercise in the request's body. The second request requires the token you received from the first request.</p>
     <h3>An Example Flow</h3>
     <ol>
         <li>
             Perform a GET request to the URL <a href="http://solutohr.azurewebsites.net/api/Auth?apiKey=@ViewBag.CandidateName">http://solutohr.azurewebsites.net/api/Auth?apiKey=@ViewBag.CandidateName</a>
         </li>
         <li>
-            Get the personal token out of the response (e.g. "ABCDE")
+            Get the personal token out of the response (it's going to look something like this: "13483b0c-611e-458d-89f3-857a201e13e2")
         </li>
         <li>
             Perform a POST request to the URL <a href="http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName">http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName</a> that:
@@ -69,7 +69,7 @@
         To check whether your solution is correct you can perform a get request to the third API endpoint.
     </p>
     <p>
-        The test is limited to 90 minutes. When you are ready to start click the button below.
+        The test should take up to an hour.
     </p>
 
 </div>
