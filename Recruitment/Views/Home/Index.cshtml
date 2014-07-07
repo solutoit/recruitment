@@ -45,7 +45,7 @@
             </tr>
         </table>
     </div>
-    <p>Your task is to write code that consumes a simple REST API which allows you to upload some code to storage. You first have to make a GET request to the first API endpoint to receive your personal token, and then make a POST request to the second API endpoint, posting the code you used to solve the exercise in the request's body. The second request requires the token you received from the first request.</p>
+    <p>Your task is to write code that consumes a simple REST API which allows you to upload some code to storage. You first have to make a GET request to the "Auth" API endpoint to receive your personal token, and then make a POST request to the second API endpoint, posting the code you used to solve the exercise in the request's body. The second request requires the token you received from the first request (as a header).</p>
     <h3>An Example Flow</h3>
     <ol>
         <li>
@@ -58,7 +58,7 @@
             Perform a POST request to the URL <a href="http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName">http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName</a> that:
             <ul>
                 <li>
-                    Has a header named "Token" with the value received in the first request. For example:<br />Token: ABCDE
+                    Has a header named "Token" with the value received in the first request. For example:<br />Token: 13483b0c-611e-458d-89f3-857a201e13e2
                 </li>
                 <li>Contains your code as plain text in the body of the request</li>
             </ul>
@@ -66,7 +66,7 @@
         </li>
     </ol>
     <p>
-        To check whether your solution is correct you can perform a get request to the third API endpoint.
+        To check whether your solution is correct you can perform a get request to the third API endpoint. The response will include the code you submitted.
     </p>
     <p>
         The test should take up to an hour.
