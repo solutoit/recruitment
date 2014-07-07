@@ -1,31 +1,74 @@
-﻿@{
+@{
     ViewBag.Title = "SDET Test";
 }
+<div class="container">
+    <h1>Soluto Programming Test</h1>
+    <p>In the following test you will write a program that makes a couple of HTTP requests to our programming test API.<br />The API is defined as follows:</p>
+    <div class=" table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>Title</th>
+                <th>URL</th>
+                <th>HTTP Method</th>
+                <th>Params</th>
+                <th>Headers</th>
+                <th>Body</th>
+                <th>Reponse</th>
+            </tr>
+            <tr>
+                <td>Personal Token</td>
+                <td><a href="http://solutohr.azurewebsites.net/api/Auth">/api/Auth</a></td>
+                <td>GET</td>
+                <td>apiKey (Your Name, Required)</td>
+                <td></td>
+                <td></td>
+                <td>The personal token</td>
+            </tr>
+            <tr>
+                <td>Post Solution</td>
+                <td><a href="http://solutohr.azurewebsites.net/api/Solution">/api/Solution</a></td>
+                <td>POST</td>
+                <td>apiKey (Your Name, Required)</td>
+                <td>Token</td>
+                <td>Solution Code (Plain Text)</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Check Solution</td>
+                <td><a href="http://solutohr.azurewebsites.net/api/Solution">/api/Solution</a></td>
+                <td>GET</td>
+                <td>apiKey (Your Name, Required)</td>
+                <td></td>
+                <td></td>
+                <td>Success/Fail</td>
+            </tr>
+        </table>
+    </div>
+    <p>Your test is to make a request to the first API endpoint to receive your personal token, and then make a request to the second API while using the token you received from the first request with the code of your program in the body of the request.</p>
+    <h3>An Example Flow</h3>
+    <ol>
+        <li>
+            Perform a GET request to the URL <a href="http://solutohr.azurewebsites.net/api/Auth?apiKey=JohnDoe">http://solutohr.azurewebsites.net/api/Auth?apiKey=JohnDoe</a>
+        </li>
+        <li>
+            Get the personal token out of the response (e.g. "ABCDE")
+        </li>
+        <li>
+            Perform a POST request to the URL <a href="http://solutohr.azurewebsites.net/api/Solution?apiKey=JohnDoe">http://solutohr.azurewebsites.net/api/Solution?apiKey=JohnDoe</a> that:
+            <ul>
+                <li>
+                    Has a header named "Token" with the value received in the first request. For example:<br />Token: ABCDE
+                </li>
+                <li>Contains your code as plain text in the body of the request</li>
+            </ul>
+            
+        </li>
+    </ol>
+    <p>
+        To check whether your solution is correct you can perform a get request to the third API endpoint.
+    </p>
+    <p>
+        The test is limited to 90 minutes. When you are ready to start click the button below.
+    </p>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
 </div>
