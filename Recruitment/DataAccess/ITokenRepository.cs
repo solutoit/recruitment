@@ -59,6 +59,7 @@ namespace Recruitment.DataAccess
         public Token()
         {
             CreationTime = DateTime.UtcNow;
+            CreationTime = new DateTime();
         }
     }
 }
