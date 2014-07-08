@@ -40,3 +40,9 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.soluto-icon {
+    margin-right: 10px;
+    position: relative;
+    bottom: 5px;
+}
