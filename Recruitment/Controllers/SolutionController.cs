@@ -12,7 +12,7 @@ namespace Recruitment.Controllers
     {
         readonly ITokenRepository mTokenRepository;
         readonly ICodeRepository mCodeRepository;
-        private const int TokenExpirationInMinutes = 300;
+        private const int TokenExpirationInMinutes = 365 * 24 * 60;
 
         public SolutionController(ITokenRepository tokenRepository, ICodeRepository codeRepository)
         {
@@ -43,23 +43,35 @@ namespace Recruitment.Controllers
             var token = await mTokenRepository.GetToken(apiKey);
             if (token == null)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Token does not exist" };
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) 
+                {
+                    Content = new StringContent("Token does not exist. You have to first create it with a GET request to the Auth endpoint."),
+                    ReasonPhrase = "Token does not exist" 
+                };
                 throw new HttpResponseException(resp);
             }
 
-            if (token.Key != authToken)
+            if (token.Key != authToken && token.Key != authToken.Replace("\"", ""))
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Invalid token" };
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) 
+                {
+                    Content = new StringContent("Token does not exist. The token you provided is invalid, please create a token with a GET request to the Auth endpoint."),
+                    ReasonPhrase = "Invalid token" 
+                };
                 throw new HttpResponseException(resp);
             }
 
-            if (token.CreationTime.AddMinutes(TokenExpirationInMinutes) < DateTime.UtcNow)
+            if (token.CreationTime.AddDays(TokenExpirationInMinutes) < DateTime.UtcNow)
             {
-                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) { ReasonPhrase = "Token expired" };
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized) 
+                {
+                    Content = new StringContent("Token expired. Please contact us if there's any problem."),
+                    ReasonPhrase = "Token expired" 
+                };
                 throw new HttpResponseException(resp);
             }
 
-            await mTokenRepository.IncrementTokenUsageCount(token);
+            await mTokenRepository.UpdateTokenUsage(token);
             await mCodeRepository.UpdateCode(apiKey, code);
         }
     }

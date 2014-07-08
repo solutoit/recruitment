@@ -10,7 +10,7 @@ namespace Recruitment.DataAccess
     public interface ITokenRepository
     {
         Task<Token> GetOrCreateToken(string name);
-        Task IncrementTokenUsageCount(Token token);
+        Task UpdateTokenUsage(Token token);
         Task<Token> GetToken(string name);
     }
 
@@ -36,9 +36,9 @@ namespace Recruitment.DataAccess
             return token;
         }
 
-        public async Task IncrementTokenUsageCount(Token token)
+        public async Task UpdateTokenUsage(Token token)
         {
-            token.UsageCount++;
+            token.Usages.Add(DateTime.UtcNow);
             await mStorageProvider.Update("tokens", token.Name, token);
         }
 
@@ -54,11 +54,12 @@ namespace Recruitment.DataAccess
         public string Name { get; set; }
         public string Key { get; set; }
         public DateTime CreationTime { get; set; }
-        public int UsageCount { get; set; }
+        public List<DateTime> Usages { get; set; }
 
         public Token()
         {
             CreationTime = DateTime.UtcNow;
+            Usages = new List<DateTime>();
         }
     }
 }
