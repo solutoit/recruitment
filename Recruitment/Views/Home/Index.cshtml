@@ -1,13 +1,13 @@
 @using System.Web.UI.WebControls
 @{
-    ViewBag.Title = "Soluto Programming Exercise";
+    ViewBag.Title = "Soluto REST Exercise";
 }
 <div class="container">
     <h1>
         <img src="https://az417896.vo.msecnd.net/Images/General/solutologo50.png" class="soluto-icon" />
-        Soluto Programming Exercise
+        Soluto REST Exercise
     </h1>
-    <p>In the following exercise you will write a program that makes a couple of HTTP requests to our programming exercise API.<br />The API is defined as follows:</p>
+    <p>In the following exercise you will consume a simple REST API.<br />The API is defined as follows:</p>
     <div class=" table-responsive">
         <table class="table table-hover">
             <tr>
@@ -34,7 +34,7 @@
                 <td>POST</td>
                 <td>apiKey (Your Name, Required)</td>
                 <td>Token</td>
-                <td>Solution Code (Plain Text)</td>
+                <td>Your solution (Plain Text)</td>
                 <td></td>
             </tr>
             <tr>
@@ -44,11 +44,11 @@
                 <td>apiKey (Your Name, Required)</td>
                 <td></td>
                 <td></td>
-                <td>Your code</td>
+                <td>Your solution</td>
             </tr>
         </table>
     </div>
-    <p>Your task is to write code that consumes a simple REST API which allows you to upload some code to storage. You first have to make a GET request to the "Auth" API endpoint to receive your personal token, and then make a POST request to the second API endpoint, posting the code you used to solve the exercise in the request's body. The second request requires the token you received from the first request (as a header).</p>
+    <p>Your task is to consume a simple REST API which allows you to upload some text to storage. You first have to make a GET request to the "Auth" API endpoint to receive your personal token, and then make a POST request to the second API endpoint, posting your solution in the request's body. The second request requires the token you received from the first request (as a header).</p>
     <h3>An Example Flow</h3>
     <ol>
         <li>
@@ -63,12 +63,12 @@
                 <li>
                     Has a header named "Token" with the value received in the first request. For example:<br />Token: 13483b0c-611e-458d-89f3-857a201e13e2
                 </li>
-                <li>Contains your code as plain text in the body of the request</li>
+                <li>Contains your solution as plain text in the body of the request</li>
             </ul>
             
         </li>
     </ol>
     <p>
-        To check whether your solution is correct you can perform a get request to the third API endpoint. The response will include the code you submitted.
+        To check whether your solution is correct you can perform a get request to the third API endpoint. The response will include the solution you submitted.
     </p>
 </div>
