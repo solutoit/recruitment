@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <td>Personal Token</td>
-                <td><a href="http://solutohr.azurewebsites.net/api/Auth?apiKey=@ViewBag.CandidateName">/api/Auth</a></td>
+                <td><a href="http://devs.soluto.com/api/Auth?apiKey=@ViewBag.CandidateName">/api/Auth</a></td>
                 <td>GET</td>
                 <td>apiKey (Your Name, Required)</td>
                 <td></td>
@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <td>Post Solution</td>
-                <td><a href="http://solutohr.azurewebsites.net/api/Solution">/api/Solution</a></td>
+                <td><a href="http://devs.soluto.com/api/Solution">/api/Solution</a></td>
                 <td>POST</td>
                 <td>apiKey (Your Name, Required)</td>
                 <td>Token</td>
@@ -39,7 +39,7 @@
             </tr>
             <tr>
                 <td>Check Solution</td>
-                <td><a href="http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName">/api/Solution</a></td>
+                <td><a href="http://devs.soluto.com/api/Solution?apiKey=@ViewBag.CandidateName">/api/Solution</a></td>
                 <td>GET</td>
                 <td>apiKey (Your Name, Required)</td>
                 <td></td>
@@ -52,13 +52,13 @@
     <h3>An Example Flow</h3>
     <ol>
         <li>
-            Perform a GET request to the URL <a href="http://solutohr.azurewebsites.net/api/Auth?apiKey=@ViewBag.CandidateName">http://solutohr.azurewebsites.net/api/Auth?apiKey=@ViewBag.CandidateName</a>
+            Perform a GET request to the URL <a href="http://devs.soluto.com/api/Auth?apiKey=@ViewBag.CandidateName">http://devs.soluto.com/api/Auth?apiKey=@ViewBag.CandidateName</a>
         </li>
         <li>
             Get the personal token out of the response (it's going to look something like this: "13483b0c-611e-458d-89f3-857a201e13e2")
         </li>
         <li>
-            Perform a POST request to the URL <a href="http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName">http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName</a> that:
+            Perform a POST request to the URL <a href="http://devs.soluto.com/api/Solution?apiKey=@ViewBag.CandidateName">http://devs.soluto.com/api/Solution?apiKey=@ViewBag.CandidateName</a> that:
             <ul>
                 <li>
                     Has a header named "Token" with the value received in the first request. For example:<br />Token: 13483b0c-611e-458d-89f3-857a201e13e2
