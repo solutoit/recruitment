@@ -1,13 +1,13 @@
 @using System.Web.UI.WebControls
 @{
-    ViewBag.Title = "Soluto Programming Exercise";
+    ViewBag.Title = "Soluto REST Exercise";
 }
 <div class="container">
     <h1>
         <img src="https://az417896.vo.msecnd.net/Images/General/solutologo50.png" class="soluto-icon" />
-        Soluto Programming Exercise
+        Soluto REST Exercise
     </h1>
-    <p>In the following exercise you will write a program that makes a couple of HTTP requests to our programming exercise API.<br />The API is defined as follows:</p>
+    <p>Your task is to consume a simple REST API that allows you to upload some text to storage.<br />The API is defined as follows:</p>
     <div class=" table-responsive">
         <table class="table table-hover">
             <tr>
@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <td>Personal Token</td>
-                <td><a href="http://solutohr.azurewebsites.net/api/Auth?apiKey=@ViewBag.CandidateName">/api/Auth</a></td>
+                <td><a href="http://devs.soluto.com/api/Auth?apiKey=@ViewBag.CandidateName">/api/Auth</a></td>
                 <td>GET</td>
                 <td>apiKey (Your Name, Required)</td>
                 <td></td>
@@ -30,45 +30,50 @@
             </tr>
             <tr>
                 <td>Post Solution</td>
-                <td><a href="http://solutohr.azurewebsites.net/api/Solution">/api/Solution</a></td>
+                <td><a href="http://devs.soluto.com/api/Solution">/api/Solution</a></td>
                 <td>POST</td>
                 <td>apiKey (Your Name, Required)</td>
                 <td>Token</td>
-                <td>Solution Code (Plain Text)</td>
+                <td>Your solution (Plain Text)</td>
                 <td></td>
             </tr>
             <tr>
                 <td>Check Solution</td>
-                <td><a href="http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName">/api/Solution</a></td>
+                <td><a href="http://devs.soluto.com/api/Solution?apiKey=@ViewBag.CandidateName">/api/Solution</a></td>
                 <td>GET</td>
                 <td>apiKey (Your Name, Required)</td>
                 <td></td>
                 <td></td>
-                <td>Your code</td>
+                <td>Your solution</td>
             </tr>
         </table>
     </div>
-    <p>Your task is to write code that consumes a simple REST API which allows you to upload some code to storage. You first have to make a GET request to the "Auth" API endpoint to receive your personal token, and then make a POST request to the second API endpoint, posting the code you used to solve the exercise in the request's body. The second request requires the token you received from the first request (as a header).</p>
+    <p>To get this started, you first have to make a GET request to the "Auth" API endpoint to receive your personal token, and then make a POST request to the second API endpoint, posting your solution in the request's body. The second request requires the token you received from the first request (as a header).</p>
     <h3>An Example Flow</h3>
     <ol>
         <li>
-            Perform a GET request to the URL <a href="http://solutohr.azurewebsites.net/api/Auth?apiKey=@ViewBag.CandidateName">http://solutohr.azurewebsites.net/api/Auth?apiKey=@ViewBag.CandidateName</a>
+            Perform a GET request to the URL <a href="http://devs.soluto.com/api/Auth?apiKey=@ViewBag.CandidateName">http://devs.soluto.com/api/Auth?apiKey=@ViewBag.CandidateName</a>
         </li>
         <li>
             Get the personal token out of the response (it's going to look something like this: "13483b0c-611e-458d-89f3-857a201e13e2")
         </li>
         <li>
-            Perform a POST request to the URL <a href="http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName">http://solutohr.azurewebsites.net/api/Solution?apiKey=@ViewBag.CandidateName</a> that:
+            Perform a POST request to the URL <a href="http://devs.soluto.com/api/Solution?apiKey=@ViewBag.CandidateName">http://devs.soluto.com/api/Solution?apiKey=@ViewBag.CandidateName</a> that:
             <ul>
                 <li>
                     Has a header named "Token" with the value received in the first request. For example:<br />Token: 13483b0c-611e-458d-89f3-857a201e13e2
                 </li>
-                <li>Contains your code as plain text in the body of the request</li>
+                <li>Contains your solution as plain text in the body of the request</li>
             </ul>
             
         </li>
     </ol>
     <p>
-        To check whether your solution is correct you can perform a get request to the third API endpoint. The response will include the code you submitted.
+        To check whether your solution is correct you can perform a get request to the third API endpoint. The response will include the solution you submitted.
     </p>
+    <br/>
+    <p>
+        We'll be happy to get any feedback.<br/>
+    </p>
+    <p><b>Enjoy!</b></p>
 </div>
