@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Recruitment.Storage;
 
 namespace Recruitment
 {
@@ -21,6 +22,8 @@ namespace Recruitment
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly()).AsImplementedInterfaces();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
+            builder.RegisterType<BlobStorageProvider>().AsImplementedInterfaces().SingleInstance();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

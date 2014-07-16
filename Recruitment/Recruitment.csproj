@@ -160,6 +160,7 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\SolutionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DataAccess\IUserActionsRepository.cs" />
     <Compile Include="DataAccess\ICodeRepository.cs" />
     <Compile Include="DataAccess\ITokenRepository.cs" />
     <Compile Include="Global.asax.cs">
