@@ -28,18 +28,18 @@ namespace Recruitment.Controllers
 
         //
         // GET: /Candidates/
-        public async Task<ActionResult> Solution(string candidateName, string password)
+        public async Task<ActionResult> Solution(string id, string password)
         {
-            if (password != mConfigurationRetriever.GetSetting("Password"))
+            if (!string.IsNullOrEmpty(password) && password != mConfigurationRetriever.GetSetting("Password"))
             {
                 throw new HttpException(403, "Forbidden");
             }
 
-            var token = await mTokenRepository.GetToken(candidateName);
+            var token = await mTokenRepository.GetToken(id);
 
             var userActions = new List<UserAction>();
 
-            userActions.AddRange(await mUserActionsRepository.GetUserActions(candidateName));
+            userActions.AddRange(await mUserActionsRepository.GetUserActions(id));
             if (token == null && userActions.Count == 0)
             {
                 return Json("Couldn't find anything on this candidate");
@@ -51,11 +51,11 @@ namespace Recruitment.Controllers
                 userActions.Add(new UserAction { Action = "API initialization", DateTime = token.CreationTime });
             }
 
-            var solution = await mCodeRepository.GetCode(candidateName);
+            var solution = await mCodeRepository.GetCode(id);
 
             var model = new CandidateModel
             {
-                Name = candidateName,
+                Name = id,
                 Actions = userActions.OrderBy(x => x.DateTime).ToList(),
                 Solution = solution
             };
