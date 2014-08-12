@@ -10,6 +10,7 @@ namespace Recruitment.DataAccess
 	public interface IUserActionsRepository
 	{
 	    Task Pageview(string name, string page);
+	    Task<IEnumerable<UserAction>> GetUserActions(string name);
 	}
 
     public class UserActionsRepository : IUserActionsRepository
@@ -32,6 +33,13 @@ namespace Recruitment.DataAccess
 
             await mStorageProvider.Create("user-actions", string.Format("{0}_{1}", name, Guid.NewGuid()), action);
         }
+
+        public async Task<IEnumerable<UserAction>> GetUserActions(string name)
+        {
+            var items = (await mStorageProvider.List("user-actions")).Where(x => x.Key.StartsWith(name));
+            var userActions = await Task.WhenAll(items.Select(x => mStorageProvider.TryRead<UserAction>("user-actions", x.Key)));
+            return userActions;
+        }
     }
 
     public class UserAction
@@ -39,5 +47,10 @@ namespace Recruitment.DataAccess
         public string Action { get; set; }
         public string CandidateName { get; set; }
         public DateTime DateTime { get; set; }
+
+        public override string ToString()
+        {
+            return Action + ", at " + DateTime;
+        }
     }
 }

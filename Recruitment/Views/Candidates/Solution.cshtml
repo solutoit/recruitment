@@ -1,0 +1,30 @@
+﻿@using System.Web.UI.WebControls
+@model Recruitment.Models.CandidateModel
+
+@{
+    ViewBag.Title = "Candidates View";
+}
+<div class="container">
+    <h1 style="color: #00AEEF">
+        @Model.Name's solution
+    </h1>
+    <h3>User actions</h3>
+    <div class=" table-responsive">
+        <table class="table table-hover">
+            <tr>
+                <th>Event</th>
+                <th>Time</th>
+            </tr>
+            @foreach (var action in Model.Actions)
+            {
+            <tr>
+                <td>@action.Action</td>
+                <td>@action.DateTime</td>
+            </tr>
+            }
+        </table>
+        <ul>
+        </ul>
+        <h3>Solution Submitted</h3>
+        @Model.Solution
+    </div>

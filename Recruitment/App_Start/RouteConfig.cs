@@ -15,7 +15,7 @@ namespace Recruitment
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
+                url: "{controller}/{action}/{candidateName}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
