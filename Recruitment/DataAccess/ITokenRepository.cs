@@ -12,6 +12,7 @@ namespace Recruitment.DataAccess
         Task<Token> GetOrCreateToken(string name);
         Task UpdateTokenUsage(Token token);
         Task<Token> GetToken(string name);
+        Task<IEnumerable<string>> ListTokens();
     }
 
     public class TokenRepository : ITokenRepository
@@ -46,6 +47,11 @@ namespace Recruitment.DataAccess
         {
             var token = await mStorageProvider.TryRead<Token>("tokens", name);
             return token;
+        }
+
+        public async Task<IEnumerable<string>> ListTokens()
+        {
+            return (await mStorageProvider.List("tokens")).Select(x => x.Key);
         }
     }
 

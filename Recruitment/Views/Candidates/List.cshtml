@@ -1,0 +1,21 @@
+﻿@using System.Web.UI.WebControls
+@model Recruitment.Models.CandidateListModel
+
+@{
+    ViewBag.Title = "Candidates List";
+}
+<div class="container">
+    <h1 style="color: #00AEEF">
+        Candidates
+    </h1>
+    <div class=" table-responsive">
+        <table class="table table-hover">
+            @foreach (var candidate in Model.Candidates)
+            {
+                var url = "/Candidates/Solution/" + candidate + "?password=" + Model.Password;
+                <tr>
+                    <td><a href=@url>@candidate</a></td>
+                </tr>
+            }
+        </table>
+    </div>

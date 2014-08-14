@@ -26,6 +26,22 @@ namespace Recruitment.Controllers
             mConfigurationRetriever = aConfigurationRetriever;
         }
 
+        public async Task<ActionResult> List(string password)
+        {
+            if (!string.IsNullOrEmpty(password) && password != mConfigurationRetriever.GetSetting("Password"))
+            {
+                throw new HttpException(403, "Forbidden");
+            }
+
+            var model = new CandidateListModel
+            {
+                Candidates = (await mTokenRepository.ListTokens()).ToList(),
+                Password = password
+            };
+
+            return View(model);
+        }
+
         //
         // GET: /Candidates/
         public async Task<ActionResult> Solution(string id, string password)
